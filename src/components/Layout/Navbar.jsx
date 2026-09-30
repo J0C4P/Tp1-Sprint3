@@ -1,6 +1,6 @@
-import Header from '../Header'
-import MyList from './MyList'
+import Header from './Header'
 import SearchBar from './SearchBar'
+import MyList from './MyList'
 
 const Navbar = ({ busqueda, setBusqueda, cantidad, togglePanel }) => {
   return (

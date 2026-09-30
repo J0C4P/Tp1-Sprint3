@@ -1,8 +1,8 @@
-import {items} from "../../data/items"
-import CatalogCard from "./CatalogCard"
+import {productos} from "../../data/productos"
+import ProductCard from "./ProductoCard"
 
-const CatalogList = ({ estaEnLista, onToggle, busqueda }) => {
-  const itemsFiltrados = items.filter((item) =>
+const ProductoList = ({ cantidadEnCarrito, onAgregar, onCambiarCantidad, busqueda }) => {
+  const itemsFiltrados = productos.filter((item) =>
     item.name.toLowerCase().includes(busqueda.toLowerCase())
   )
 
@@ -13,8 +13,8 @@ const CatalogList = ({ estaEnLista, onToggle, busqueda }) => {
         <p className="font-manrope text-[15px] text-fg-muted">Explorá la colección y armá tu lista.</p>
       </div>
 
-      {items.length === 0 ? (
-        <p className="font-manrope text-sm text-fg-muted">Todavía no hay items en el catálogo.</p>
+      {productos.length === 0 ? (
+        <p className="font-manrope text-sm text-fg-muted">Todavía no hay productos en el catálogo.</p>
       ) : itemsFiltrados.length === 0 ? (
         <div className="flex flex-col gap-1.5 py-16">
           <p className="font-archivo text-lg font-bold text-fg">Sin resultados</p>
@@ -23,11 +23,12 @@ const CatalogList = ({ estaEnLista, onToggle, busqueda }) => {
       ) : (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-4 sm:grid-cols-[repeat(auto-fill,minmax(232px,1fr))] sm:gap-7">
           {itemsFiltrados.map((item) => (
-            <CatalogCard
+            <ProductCard
               key={item.id}
               item={item}
-              enLista={estaEnLista(item.id)}
-              onToggle={onToggle}
+              cantidadEnCarrito={cantidadEnCarrito(item.id)}
+              onCambiarCantidad={onCambiarCantidad}
+              onAgregar={onAgregar}
             />
           ))}
         </div>
@@ -36,4 +37,4 @@ const CatalogList = ({ estaEnLista, onToggle, busqueda }) => {
   )
 }
 
-export default CatalogList
+export default ProductoList

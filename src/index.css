@@ -1,1 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Manrope:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
+
+@theme {
+  /* Fondo general de la app */
+  --color-bg: #15131a;
+  /* Fondo de tarjetas y superficies elevadas */
+  --color-surface: #1f1c26;
+  /* Inicio del degradé del área de imagen placeholder */
+  --color-surface-image-from: #2a2530;
+  /* Fin del degradé del área de imagen placeholder */
+  --color-surface-image-to: #1a1720;
+  /* Texto principal */
+  --color-fg: #f6f3f7;
+  /* Texto secundario / metadatos */
+  --color-fg-muted: #9691a0;
+  /* Acento lava, rosa */
+  --color-lava-pink: #ff3d71;
+  /* Acento lava, naranja */
+  --color-lava-orange: #ff7a3d;
+
+  --font-archivo: 'Archivo', sans-serif;
+  --font-manrope: 'Manrope', sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-bg font-manrope text-fg;
+  }
+}

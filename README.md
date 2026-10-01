@@ -1,6 +1,6 @@
 # MiGameList — Tienda
 
-🔗 **Demo:** (pendiente)
+🔗 **Deploy Netlify:** https://tp1-sprint3.netlify.app/
 
 ## Qué es
 Mi catálogo de videojuegos del Sprint 2 se convirtió en tienda: agregás productos al carrito, ajustás cantidades, pasás por un checkout con validaciones y confirmás el pedido. El carrito y el modo oscuro persisten entre recargas (F5).

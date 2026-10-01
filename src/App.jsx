@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useToggle } from "./hooks/useToggle"
 import Footer from "./components/Layout/Footer"
 import Navbar from "./components/Layout/Navbar"
@@ -19,10 +19,6 @@ function App() {
     setPedidoConfirmacion(pedido)
     setVista(VISTAS.CONFIRMACION)
   }
-  // useEffect(() => {
-  //   document.title = cantidad > 0 ? `Mi GameList (${cantidad})` : "Mi GameList"
-  // }, [cantidad])
-
   return (
     <>
       <main>

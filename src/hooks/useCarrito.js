@@ -3,8 +3,6 @@ import { useLocalStorage } from "./useLocalStorage";
 export function useCarrito() {
   const [carrito, setCarrito] = useLocalStorage("tutienda:carrito", []);
 
-  const cantidadEnCarrito = (id) => carrito.find((item) => item.id === id)?.cantidad ?? 0;
-
   const cambiarCantidad = (id, delta) => {
     setCarrito((prev) =>
       prev
@@ -17,15 +15,15 @@ export function useCarrito() {
     );
   };
 
-  const agregarCarrito = (item) => {
+  const agregarCarrito = (item, cantidad = 1) => {
     const yaEsta = carrito.some((i) => i.id === item.id);
 
     if (yaEsta) {
-      cambiarCantidad(item.id, 1);
+      cambiarCantidad(item.id, cantidad);
       return;
     }
 
-    setCarrito((prev) => [...prev, { ...item, cantidad: 1 }]);
+    setCarrito((prev) => [...prev, { ...item, cantidad: Math.min(cantidad, item.stock) }]);
   };
 
   const quitarCarrito = (id) => {
@@ -41,7 +39,6 @@ export function useCarrito() {
     carrito,
     cantidadTotal,
     total,
-    cantidadEnCarrito,
     agregarCarrito,
     cambiarCantidad,
     quitarCarrito,

@@ -1,7 +1,17 @@
+import { useState } from "react";
 import { formatearPrecio } from "../../utils/formato.js";
 
-const ProductCard = ({ item, cantidadEnCarrito, onCambiarCantidad, onAgregar }) => {
+const ProductCard = ({ item, onAgregar }) => {
+  const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1)
   const sinStock = item.stock === 0
+
+  const restar = () => setCantidadSeleccionada((c) => Math.max(1, c - 1))
+  const sumar = () => setCantidadSeleccionada((c) => Math.min(item.stock, c + 1))
+
+  const confirmarAgregar = () => {
+    onAgregar(item, cantidadSeleccionada)
+    setCantidadSeleccionada(1)
+  }
   return (
     <article className="flex flex-col overflow-hidden rounded-xl border border-white/8 bg-surface transition-all duration-200 hover:-translate-y-1.5 hover:border-lava-pink/45 hover:shadow-[0_20px_40px_-12px_rgba(255,61,113,0.35)]">
       <div className="relative flex aspect-3/4 items-center justify-center bg-gradient-to-br from-surface-image-from to-surface-image-to">
@@ -43,41 +53,40 @@ const ProductCard = ({ item, cantidadEnCarrito, onCambiarCantidad, onAgregar }) 
           <span>{item.rating}</span>
         </div>
 
-        {cantidadEnCarrito > 0 ? (
-          <div className="flex h-9 w-full items-center justify-between rounded-lg border border-white/18 bg-white/5 px-1.5">
-            <button
-              type="button"
-              aria-label="Restar uno"
-              onClick={() => onCambiarCantidad(item.id, -1)}
-              className="flex h-7 w-7 items-center justify-center rounded-md text-fg transition-colors hover:bg-white/10"
-            >
-              −
-            </button>
-            <span className="font-archivo text-[13px] font-bold text-fg">{cantidadEnCarrito}</span>
-            <button
-              type="button"
-              aria-label="Sumar uno"
-              onClick={() => onCambiarCantidad(item.id, 1)}
-              disabled={cantidadEnCarrito >= item.stock}
-              className="flex h-7 w-7 items-center justify-center rounded-md text-fg transition-colors hover:bg-white/10 disabled:opacity-30"
-            >
-              +
-            </button>
-          </div>
-        ) : (
+        <div className="flex h-9 w-full items-center justify-between rounded-lg border border-white/18 bg-white/5 px-1.5">
           <button
             type="button"
-            onClick={() => onAgregar(item)}
-            disabled={sinStock}
-            className="flex h-9 w-full items-center justify-center gap-1.5 rounded-lg border border-white/18 bg-white/5 font-archivo text-[12.5px] font-bold tracking-wide text-fg uppercase transition-[filter,transform] hover:brightness-110 active:scale-97 disabled:opacity-40"
+            aria-label="Restar uno"
+            onClick={restar}
+            disabled={sinStock || cantidadSeleccionada <= 1}
+            className="flex h-7 w-7 items-center justify-center rounded-md text-fg transition-colors hover:bg-white/10 disabled:opacity-30"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="12" y1="5" x2="12" y2="19" />
-              <line x1="5" y1="12" x2="19" y2="12" />
-            </svg>
-            <span>{sinStock ? "Sin stock" : "Agregar"}</span>
+            −
           </button>
-        )}
+          <span className="font-archivo text-[13px] font-bold text-fg">{cantidadSeleccionada}</span>
+          <button
+            type="button"
+            aria-label="Sumar uno"
+            onClick={sumar}
+            disabled={sinStock || cantidadSeleccionada >= item.stock}
+            className="flex h-7 w-7 items-center justify-center rounded-md text-fg transition-colors hover:bg-white/10 disabled:opacity-30"
+          >
+            +
+          </button>
+        </div>
+
+        <button
+          type="button"
+          onClick={confirmarAgregar}
+          disabled={sinStock}
+          className="flex h-9 w-full items-center justify-center gap-1.5 rounded-lg border border-white/18 bg-white/5 font-archivo text-[12.5px] font-bold tracking-wide text-fg uppercase transition-[filter,transform] hover:brightness-110 active:scale-97 disabled:opacity-40"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+          <span>{sinStock ? "Sin stock" : "Agregar"}</span>
+        </button>
       </div>
     </article>
   )

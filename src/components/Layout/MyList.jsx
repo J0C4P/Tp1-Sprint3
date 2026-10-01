@@ -10,7 +10,7 @@ const MyList = ({ cantidad, togglePanel }) => {
         <path d="M4 12h16" />
         <path d="M4 18h10" />
       </svg>
-      <span>Mi Lista{cantidad > 0 ? ` (${cantidad})` : ""}</span>
+      <span>Carrito{cantidad > 0 ? ` (${cantidad})` : ""}</span>
     </button>
   )
 }

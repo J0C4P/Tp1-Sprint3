@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { formatearPrecio } from "../../utils/formato.js";
+import { useCarritoContext } from "../../context/CarritoContext.jsx";
 
-const ProductCard = ({ item, onAgregar }) => {
+const ProductCard = ({ item }) => {
   const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1)
   const sinStock = item.stock === 0
 
   const restar = () => setCantidadSeleccionada((c) => Math.max(1, c - 1))
   const sumar = () => setCantidadSeleccionada((c) => Math.min(item.stock, c + 1))
 
+  const { agregarCarrito } = useCarritoContext()
+
   const confirmarAgregar = () => {
-    onAgregar(item, cantidadSeleccionada)
+    agregarCarrito(item, cantidadSeleccionada)
     setCantidadSeleccionada(1)
   }
   return (

@@ -1,8 +1,12 @@
 import Modal from "../ui/Modal";
 import CarritoItem from "./CarritoItem";
 import { formatearPrecio } from "../../utils/formato";
+import { useCarritoContext } from "../../context/CarritoContext";
 
-const CarritoModal = ({ abierto, onClose, carrito, total, cambiarCantidad, quitar, vaciar }) => {
+const CarritoModal = ({ abierto, onClose}) => {
+
+  const { carrito, total, vaciarCarrito } = useCarritoContext();
+
   return (
     <Modal abierto={abierto} onClose={onClose} titulo="Mi carrito">
       {carrito.length === 0 
@@ -10,7 +14,7 @@ const CarritoModal = ({ abierto, onClose, carrito, total, cambiarCantidad, quita
         : (<>
           <ul>
             {carrito.map((item) => (
-              <CarritoItem key={item.id} item={item} cambiarCantidad={cambiarCantidad} quitar={quitar} />
+              <CarritoItem key={item.id} item={item} />
             ))}
           </ul>
 
@@ -19,7 +23,7 @@ const CarritoModal = ({ abierto, onClose, carrito, total, cambiarCantidad, quita
             <span>{formatearPrecio(total)}</span>
           </div>
 
-          <button type="button" onClick={vaciar}>
+          <button type="button" onClick={vaciarCarrito}>
             Vaciar carrito
           </button>
         </>)

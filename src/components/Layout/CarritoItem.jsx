@@ -1,7 +1,10 @@
 import { formatearPrecio } from "../../utils/formato";
+import { useCarritoContext } from "../../context/CarritoContext";
 
-const CarritoItem = ({ item, cambiarCantidad, quitar }) => {
+const CarritoItem = ({ item }) => {
   const sinStock = item.cantidad >= item.stock;
+
+  const { cambiarCantidad, quitarCarrito } = useCarritoContext();
 
   return (
     <li>
@@ -19,7 +22,7 @@ const CarritoItem = ({ item, cambiarCantidad, quitar }) => {
 
       <span>{formatearPrecio(item.precio * item.cantidad)}</span>
 
-      <button type="button" aria-label="Quitar del carrito" onClick={() => quitar(item.id)}>
+      <button type="button" aria-label="Quitar del carrito" onClick={() => quitarCarrito(item.id)}>
         ✕
       </button>
     </li>

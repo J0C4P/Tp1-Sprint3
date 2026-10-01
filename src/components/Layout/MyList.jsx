@@ -1,4 +1,9 @@
-const MyList = ({ cantidad, togglePanel }) => {
+import { useCarritoContext } from "../../context/CarritoContext"
+
+const MyList = ({ togglePanel }) => {
+
+  const {cantidadTotal} = useCarritoContext()
+
   return (
     <button
       type="button"
@@ -10,7 +15,7 @@ const MyList = ({ cantidad, togglePanel }) => {
         <path d="M4 12h16" />
         <path d="M4 18h10" />
       </svg>
-      <span>Carrito{cantidad > 0 ? ` (${cantidad})` : ""}</span>
+      <span>Carrito{cantidadTotal > 0 ? ` (${cantidadTotal})` : ""}</span>
     </button>
   )
 }

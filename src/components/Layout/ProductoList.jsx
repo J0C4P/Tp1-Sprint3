@@ -1,7 +1,7 @@
 import {productos} from "../../data/productos"
 import ProductCard from "./ProductoCard"
 
-const ProductoList = ({ onAgregar, busqueda }) => {
+const ProductoList = ({ busqueda }) => {
   const itemsFiltrados = productos.filter((item) =>
     item.name.toLowerCase().includes(busqueda.toLowerCase())
   )
@@ -23,7 +23,7 @@ const ProductoList = ({ onAgregar, busqueda }) => {
       ) : (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-4 sm:grid-cols-[repeat(auto-fill,minmax(232px,1fr))] sm:gap-7">
           {itemsFiltrados.map((item) => (
-            <ProductCard key={item.id} item={item} onAgregar={onAgregar} />
+            <ProductCard key={item.id} item={item}/>
           ))}
         </div>
       )}

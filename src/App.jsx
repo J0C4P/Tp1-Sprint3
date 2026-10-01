@@ -11,10 +11,14 @@ import Confirmacion from "./components/Views/Confirmacion.jsx"
 function App() {
   const [panelAbierto, togglePanel] = useToggle(false)
   const [vista, setVista] = useState(VISTAS.TIENDA)
+  const [pedidoConfirmacion, setPedidoConfirmacion] = useState(null)
 
   const irACheckout = () => setVista(VISTAS.CHECKOUT)
   const irATienda = () => setVista(VISTAS.TIENDA)
-  const irAConfirmacion = () => setVista(VISTAS.CONFIRMACION)
+  const irAConfirmacion = (pedido) => {
+    setPedidoConfirmacion(pedido)
+    setVista(VISTAS.CONFIRMACION)
+  }
   // useEffect(() => {
   //   document.title = cantidad > 0 ? `Mi GameList (${cantidad})` : "Mi GameList"
   // }, [cantidad])
@@ -25,7 +29,7 @@ function App() {
         <Navbar togglePanel={togglePanel}></Navbar>
         {vista === VISTAS.TIENDA && <Tienda onIrACheckout={irACheckout}></Tienda>}
         {vista === VISTAS.CHECKOUT && <Checkout onVolver={irATienda} onConfirmar={irAConfirmacion}></Checkout>}
-        {vista === VISTAS.CONFIRMACION && <Confirmacion onIrATienda={irATienda}></Confirmacion>}
+        {vista === VISTAS.CONFIRMACION && <Confirmacion pedido={pedidoConfirmacion} onIrATienda={irATienda}></Confirmacion>}
         <CarritoModal abierto={panelAbierto} onClose={togglePanel}></CarritoModal>
       </main>
       <Footer></Footer>

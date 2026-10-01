@@ -1,23 +1,31 @@
 import { useState, useEffect } from "react"
 import { useToggle } from "./hooks/useToggle"
-import ProductoList from "./components/Layout/ProductoList"
 import Footer from "./components/Layout/Footer"
 import Navbar from "./components/Layout/Navbar"
 import CarritoModal from "./components/Layout/CarritoModal"
+import { VISTAS } from "./data/vistas.js"
+import Tienda from "./components/Views/Tienda.jsx"
+import Checkout from "./components/Views/Checkout.jsx"
+import Confirmacion from "./components/Views/Confirmacion.jsx"
 
 function App() {
-  const [busqueda, setBusqueda] = useState("")
   const [panelAbierto, togglePanel] = useToggle(false)
+  const [vista, setVista] = useState(VISTAS.TIENDA)
 
+  const irACheckout = () => setVista(VISTAS.CHECKOUT)
+  const irATienda = () => setVista(VISTAS.TIENDA)
+  const irAConfirmacion = () => setVista(VISTAS.CONFIRMACION)
   // useEffect(() => {
   //   document.title = cantidad > 0 ? `Mi GameList (${cantidad})` : "Mi GameList"
   // }, [cantidad])
 
   return (
     <>
-      <Navbar busqueda={busqueda} setBusqueda={setBusqueda} togglePanel={togglePanel}></Navbar>
       <main>
-        <ProductoList busqueda={busqueda}></ProductoList>
+        <Navbar togglePanel={togglePanel}></Navbar>
+        {vista === VISTAS.TIENDA && <Tienda onIrACheckout={irACheckout}></Tienda>}
+        {vista === VISTAS.CHECKOUT && <Checkout onVolver={irATienda} onConfirmar={irAConfirmacion}></Checkout>}
+        {vista === VISTAS.CONFIRMACION && <Confirmacion onIrATienda={irATienda}></Confirmacion>}
         <CarritoModal abierto={panelAbierto} onClose={togglePanel}></CarritoModal>
       </main>
       <Footer></Footer>

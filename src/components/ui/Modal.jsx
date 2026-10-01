@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-function Modal({ abierto, onClose, titulo, children }) {
+const Modal = ({ abierto, onClose, titulo, children }) => {
   useEffect(() => {
     if (!abierto) return
 

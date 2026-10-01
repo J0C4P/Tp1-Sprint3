@@ -12,6 +12,7 @@ function App() {
   const [panelAbierto, togglePanel] = useToggle(false)
   const [vista, setVista] = useState(VISTAS.TIENDA)
   const [pedidoConfirmacion, setPedidoConfirmacion] = useState(null)
+  const [busqueda, setBusqueda] = useState("")
 
   const irACheckout = () => setVista(VISTAS.CHECKOUT)
   const irATienda = () => setVista(VISTAS.TIENDA)
@@ -22,8 +23,8 @@ function App() {
   return (
     <>
       <main>
-        <Navbar togglePanel={togglePanel}></Navbar>
-        {vista === VISTAS.TIENDA && <Tienda onIrACheckout={irACheckout}></Tienda>}
+        <Navbar vista={vista} busqueda={busqueda} setBusqueda={setBusqueda} togglePanel={togglePanel}></Navbar>
+        {vista === VISTAS.TIENDA && <Tienda busqueda={busqueda} onIrACheckout={irACheckout}></Tienda>}
         {vista === VISTAS.CHECKOUT && <Checkout onVolver={irATienda} onConfirmar={irAConfirmacion}></Checkout>}
         {vista === VISTAS.CONFIRMACION && <Confirmacion pedido={pedidoConfirmacion} onIrATienda={irATienda}></Confirmacion>}
         <CarritoModal abierto={panelAbierto} onClose={togglePanel}></CarritoModal>

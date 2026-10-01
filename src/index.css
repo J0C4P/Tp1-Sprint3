@@ -23,6 +23,15 @@
   --font-manrope: 'Manrope', sans-serif;
 }
 
+:root.tema-claro {
+  --color-bg: #eeebf2;
+  --color-surface: #ffffff;
+  --color-surface-image-from: #e4e0ea;
+  --color-surface-image-to: #d8d2e0;
+  --color-fg: #15131a;
+  --color-fg-muted: #6b6775;
+}
+
 @layer base {
   body {
     @apply bg-bg font-manrope text-fg;

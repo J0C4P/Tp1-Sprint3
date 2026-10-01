@@ -1,12 +1,16 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const ThemeContext = createContext(null);
 
 export const ThemeProvider = ({ children }) => {
-  const [modoOscuro, setModoOscuro] = useLocalStorage("tutienda:modoOscuro", false);
+  const [modoOscuro, setModoOscuro] = useLocalStorage("tutienda:modoOscuro", true);
 
   const toggleModo = () => setModoOscuro((valor) => !valor);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("tema-claro", !modoOscuro);
+  }, [modoOscuro]);
 
   return (
     <ThemeContext.Provider value={{ modoOscuro, toggleModo }}>
